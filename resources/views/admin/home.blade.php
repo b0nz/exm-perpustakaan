@@ -1,24 +1,30 @@
-@extends('layouts.app')
-
-@section('content')
+@extends('layouts.app') @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card bg-white">
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                    <p>role admin</p>
+                    <h5 class="card-title">Total User</h5>
+                    <p class="card-text">{{ $totalUser }}</p>
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="card bg-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Buku</h5>
+                    <p class="card-text">0</p>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-md-4">
+            <div class="card bg-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Transaksi</h5>
+                    <p class="card-text">567</p>
+                </div>
+            </div>
+        </div> -->
     </div>
 </div>
 @endsection
