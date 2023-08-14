@@ -1,23 +1,21 @@
-@extends('layouts.app')
-
-@section('content')
+@extends('layouts.app') @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
+        <div class="row">
+            @foreach ($dataBuku as $buku)
+                <div class="col-md-4 mb-4">
+                    <div class="card bg-white">
+                        <img src="assets/images/book-mockup.jpeg" class="card-img-top" alt="Book 2" />
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $buku->BookName }}</h5>
+                            <div class="card-text">
+                                <p class="mb-0">Publisher: {{ $buku->Publisher }}</p>
+                                <p class="mb-0">Genre: Mystery</p>
+                            </div>
                         </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
-                    <p>role user</p>
+                    </div>
                 </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </div>
