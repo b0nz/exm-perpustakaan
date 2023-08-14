@@ -18,7 +18,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -33,20 +33,23 @@
                         @auth
                             @if (Auth::user()->hasRole('admin'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
+                                    <a class="{{ (request()->is('/')) ? " nav-link active text-decoration-underline" : "nav-link" }}" href="{{ route('home') }}">{{ __('Dashboard') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('users') }}">{{ __('Users') }}</a>
+                                    <a class="{{ (request()->is('users')) ? "nav-link active text-decoration-underline" : "nav-link" }}" href="{{ route('users') }}">{{ __('Users') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('buku') }}">{{ __('Buku') }}</a>
+                                    <a class="{{ (request()->is('buku')) ? "nav-link active text-decoration-underline" : "nav-link" }}" href="{{ route('buku') }}">{{ __('Buku') }}</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('jenis-buku') }}">{{ __('Jenis Buku') }}</a>
+                                    <a class="{{ (request()->is('jenis-buku')) ? "nav-link active text-decoration-underline" : "nav-link" }}" href="{{ route('jenis-buku') }}">{{ __('Jenis Buku') }}</a>
                                 </li>
                             @else
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
+                                    <a class="{{ (request()->is('/')) ? "nav-link active text-decoration-underline" : "nav-link" }}" href="{{ route('home') }}">{{ __('Home') }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="{{ (request()->is('history')) ? "nav-link active text-decoration-underline" : "nav-link" }}" href="{{ route('history') }}">{{ __('History') }}</a>
                                 </li>
                             @endif
                         @endauth
@@ -68,12 +71,15 @@
                                 </li>
                             @endif
                         @else
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('home') }}">
-                                    <i class="bi bi-cart3"></i>
-                                </a>
-                            </li>
+                            @auth
+                                @if (!Auth::user()->hasRole('admin'))
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="offcanvas" href="#cart" role="button" aria-controls="cart">
+                                            <i class="bi bi-cart3"></i>
+                                        </a>
+                                    </li>
+                                @endif
+                            @endauth
 
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -101,6 +107,19 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        <!-- cart -->
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="cart" aria-labelledby="cartLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="cartLabel">Cart</h5>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <div>
+                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
