@@ -27,7 +27,8 @@ class HomeController extends Controller
     {
         if (Gate::allows('isAdmin')) {
             $totalUser = DB::table('users')->where('role', '=', 'user')->count();
-            return view('admin.home', ['totalUser' => $totalUser]);
+            $totalBuku = DB::table('Buku')->count();
+            return view('admin.home', ['totalUser' => $totalUser, 'totalBuku' => $totalBuku]);
         } else if (Gate::allows('isUser')) {
             $dataBuku = DB::table('Buku')->get();
             return view('user.home', ['dataBuku' => $dataBuku]);

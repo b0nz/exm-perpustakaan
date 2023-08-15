@@ -13,7 +13,7 @@
             <div class="card bg-white">
                 <div class="card-body">
                     <h5 class="card-title">Total Buku</h5>
-                    <p class="card-text">0</p>
+                    <p class="card-text">{{ $totalBuku }}</p>
                 </div>
             </div>
         </div>
