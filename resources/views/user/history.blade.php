@@ -1,7 +1,43 @@
 @extends('layouts.app') @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <p>history</p>
+        <h3 class="f-3">History</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Code</th>
+                    <th scope="col">Nama Buku</th>
+                    <th scope="col">Qty</th>
+                    <th scope="col">Tgl Pinjam</th>
+                    <th scope="col">Batas Waktu Pengembalian</th>
+                    <th scope="col">Denda</th>
+                    <th scope="col">Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($dataTrx as $trx)
+                <tr>
+                    <td scope="row">{{ $loop->index + 1 }}</td>
+                    <td>{{ $trx->TransCode }}</td>
+                    <td>{{ $trx->BookName }}</td>
+                    <td>{{ $trx->Qty }}</td>
+                    <td>{{ $trx->TransDate }}</td>
+                    <td>{{ $trx->ReturnDate }}</td>
+                    <td>{{ $trx->Fine ?? 0 }}</td>
+                    <td>
+                        <a href="#" class="btn btn-primary fw-bold" role="button">Kembalikan</a>
+                    </td>
+                </tr>
+                @endforeach @isset($dataTrx) @if(count($dataTrx) == 0)
+                <tr>
+                    <td colspan="8" class="text-center">
+                        Tidak ada data
+                    </td>
+                </tr>
+                @endif @endisset
+            </tbody>
+        </table>
     </div>
 </div>
 @endsection

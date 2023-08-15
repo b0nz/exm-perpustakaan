@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use DateTime;
 use DateInterval;
 
@@ -30,6 +31,7 @@ class CartController extends Controller
             DB::table('Transaksi')->insert([
                 "TransCode" => $trxCode,
                 "TransDate" => $currentDate,
+                "UserID" => Auth::user()->id,
                 "FineTotal" => 0,
             ]);
             DB::table('DetailTransaksi')->insert([
