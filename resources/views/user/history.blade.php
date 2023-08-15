@@ -26,7 +26,7 @@
                     <td>{{ $trx->ReturnDate }}</td>
                     <td>{{ $trx->Fine ?? 0 }}</td>
                     <td>
-                        <a href="#" class="btn btn-primary fw-bold" role="button">Kembalikan</a>
+                        <a href="{{ route('pengembalian', $trx->TransCode) }}" class="btn btn-primary fw-bold" role="button">Pengembalian</a>
                     </td>
                 </tr>
                 @endforeach @isset($dataTrx) @if(count($dataTrx) == 0)

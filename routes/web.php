@@ -51,6 +51,9 @@ Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])
 Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])
     ->middleware('can:isUser')
     ->name('history');
+Route::get('/history/pengembalian/{id}', [App\Http\Controllers\HistoryController::class, 'pengembalian'])
+    ->middleware('can:isUser')
+    ->name('pengembalian');
 Route::get('/buku/{id}', [App\Http\Controllers\DetailBukuController::class, 'index'])
     ->middleware('can:isUser')
     ->name('buku.detail');
