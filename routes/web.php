@@ -26,6 +26,7 @@ Route::post('/buku', [App\Http\Controllers\BukuController::class, 'create'])
 Route::put('/buku/{id}', [App\Http\Controllers\BukuController::class, 'update'])
     ->middleware('can:isAdmin')
     ->name('buku.update');
+
 Route::delete('/buku/{id}', [App\Http\Controllers\BukuController::class, 'delete'])
     ->middleware('can:isAdmin')
     ->name('buku.delete');
@@ -47,6 +48,14 @@ Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])
     ->middleware('can:isAdmin')
     ->name('users');
 
-    Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])
+Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])
     ->middleware('can:isUser')
     ->name('history');
+Route::get('/buku/{id}', [App\Http\Controllers\DetailBukuController::class, 'index'])
+    ->middleware('can:isUser')
+    ->name('buku.detail');
+
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'index']);
+Route::post('/cart/{id}', [App\Http\Controllers\CartController::class, 'pinjam'])
+    ->middleware('can:isUser')
+    ->name('pinjam');

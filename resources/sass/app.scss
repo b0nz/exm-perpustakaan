@@ -17,3 +17,9 @@
         }
     }
 }
+
+.custom-card {
+    &:hover {
+        opacity: .75;
+    }
+}

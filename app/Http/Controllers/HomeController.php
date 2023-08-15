@@ -30,7 +30,10 @@ class HomeController extends Controller
             $totalBuku = DB::table('Buku')->count();
             return view('admin.home', ['totalUser' => $totalUser, 'totalBuku' => $totalBuku]);
         } else if (Gate::allows('isUser')) {
-            $dataBuku = DB::table('Buku')->get();
+            $dataBuku = DB::table('Buku')
+                    ->leftJoin('JenisBuku', 'Buku.BookTypeID', '=', 'JenisBuku.ID')
+                    ->select('Buku.ID', 'Buku.BookName', 'Buku.Description', 'Buku.Publisher', 'Buku.Year', 'Buku.Stock', 'JenisBuku.BookType')
+                    ->get();
             return view('user.home', ['dataBuku' => $dataBuku]);
         }
         return abort(403);

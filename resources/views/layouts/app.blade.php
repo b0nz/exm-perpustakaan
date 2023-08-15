@@ -74,8 +74,8 @@
                             @auth
                                 @if (!Auth::user()->hasRole('admin'))
                                     <li class="nav-item">
-                                        <a class="nav-link" data-bs-toggle="offcanvas" href="#cart" role="button" aria-controls="cart">
-                                            <i class="bi bi-cart3"></i>
+                                        <a class="nav-link" href="{{ url('cart') }}" role="button">
+                                            <i class="bi bi-cart3 position-relative"></i>
                                         </a>
                                     </li>
                                 @endif
@@ -107,19 +107,6 @@
         <main class="py-4">
             @yield('content')
         </main>
-
-        <!-- cart -->
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="cart" aria-labelledby="cartLabel">
-            <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="cartLabel">Cart</h5>
-                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-                <div>
-                Some text as placeholder. In real life you can have the elements you have chosen. Like, text, images, lists, etc.
-                </div>
-            </div>
-        </div>
     </div>
 </body>
 </html>
