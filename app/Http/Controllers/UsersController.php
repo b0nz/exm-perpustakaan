@@ -13,7 +13,7 @@ class UsersController extends Controller
         $users = DB::table('users')
                     ->where('id', '!=', $currentUser->id)
                     ->where('role', '=', 'user')
-                    ->get(['id', 'name', 'email']);
+                    ->get(['id', 'name', 'email', 'created_at']);
         return view('admin.users', compact('users'));
     }
 }

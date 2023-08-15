@@ -5,7 +5,7 @@
             <div class="card-body">
                 <div class="d-flex flex-row justify-content-between mb-4">
                     <h3 class="card-title">Users</h3>
-                    <button type="button" class="btn btn-primary fw-bold">Tambah User</button>
+                    <!-- <button type="button" class="btn btn-primary fw-bold">Tambah User</button> -->
                 </div>
                 <table class="table">
                     <thead>
@@ -13,7 +13,8 @@
                             <th scope="col">#</th>
                             <th scope="col">Nama</th>
                             <th scope="col">Email</th>
-                            <th scope="col">Aksi</th>
+                            <th scope="col">Created At</th>
+                            <!-- <th scope="col">Aksi</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -22,10 +23,11 @@
                                 <th scope="row">{{ $loop->index + 1 }}</th>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>
+                                <td>{{ $user->created_at }}</td>
+                                <!-- <td>
                                     <button type="button" class="btn btn-warning fw-bold">Edit</button>
                                     <button type="button" class="btn btn-danger fw-bold">Delete</button>
-                                </td>
+                                </td> -->
                             </tr>
                         @endforeach
                     </tbody>
