@@ -33,6 +33,15 @@ Route::delete('/buku/{id}', [App\Http\Controllers\BukuController::class, 'delete
 Route::get('/jenis-buku', [App\Http\Controllers\JenisBukuController::class, 'index'])
     ->middleware('can:isAdmin')
     ->name('jenis-buku');
+Route::post('/jenis-buku', [App\Http\Controllers\JenisBukuController::class, 'create'])
+    ->middleware('can:isAdmin')
+    ->name('jenis-buku.create');
+Route::put('/jenis-buku/{id}', [App\Http\Controllers\JenisBukuController::class, 'update'])
+    ->middleware('can:isAdmin')
+    ->name('jenis-buku.update');
+Route::delete('/jenis-buku/{id}', [App\Http\Controllers\JenisBukuController::class, 'delete'])
+    ->middleware('can:isAdmin')
+    ->name('jenis-buku.delete');
 
 Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])
     ->middleware('can:isAdmin')
