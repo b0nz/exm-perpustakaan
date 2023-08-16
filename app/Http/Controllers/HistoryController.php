@@ -25,7 +25,7 @@ class HistoryController extends Controller
         $dataTrx = DB::table('DetailTransaksi')
                     ->leftJoin('Transaksi', 'Transaksi.TransCode', '=', 'DetailTransaksi.TransID')
                     ->leftJoin('Buku', 'Buku.ID', '=', 'DetailTransaksi.BookID')
-                    ->select('Transaksi.TransCode', 'Transaksi.TransDate', 'Transaksi.FineTotal', 'DetailTransaksi.ReturnDate', 'DetailTransaksi.Qty', 'DetailTransaksi.FineDays', 'DetailTransaksi.Fine', 'Buku.BookName', 'Buku.Publisher', 'Buku.Year')
+                    ->select('Transaksi.TransCode', 'Transaksi.TransDate', 'Transaksi.FineTotal', 'DetailTransaksi.ReturnDate', 'DetailTransaksi.Qty', 'DetailTransaksi.FineDays', 'DetailTransaksi.Fine', 'DetailTransaksi.BookID', 'Buku.BookName', 'Buku.Publisher', 'Buku.Year')
                     ->where('Transaksi.UserID', '=', Auth::user()->id)
                     ->where('Transaksi.TransCode', '=', $id)
                     ->first();
@@ -35,19 +35,23 @@ class HistoryController extends Controller
         }
 
         try {
-            $dateDiff = date_diff(date_create($dataTrx->ReturnDate), date_create(date('Y-m-d')))->format('%a');
-            $calculateFineDay = $dateDiff <= 0 ? 0 : $dateDiff;
-            $calculateFine = $calculateFineDay > 10 ? 120000 : ($calculateFineDay < 0 ? 0 : $calculateFineDay) * 10000;
+            $dateDiff = date_diff(date_create($dataTrx->ReturnDate), date_create(date('Y-m-d')))->format('%r%a');
+            $calculateFine = $dateDiff > 10 ? 120000 : ($dateDiff < 0 ? 0 : $dateDiff * 10000) ;
             DB::table('DetailTransaksi')
                     ->where('TransID', '=', $id)
                     ->update([
-                        'FineDays' => $calculateFineDay,
+                        'FineDays' => $dateDiff,
                         'Fine' => $calculateFine
                     ]);
             DB::table('Transaksi')
                     ->where('TransCode', '=', $id)
                     ->update([
                         'FineTotal' => $calculateFine
+                    ]);
+            DB::table('Buku')
+                    ->where('ID', '=', $dataTrx->BookID)
+                    ->update([
+                        'Stock' => DB::raw('Stock + ' . $dataTrx->Qty)
                     ]);
             toastr()->success('Buku berhasil dikembalikan');
             return redirect()->route('history');

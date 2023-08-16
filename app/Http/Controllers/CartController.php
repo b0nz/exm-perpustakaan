@@ -32,7 +32,7 @@ class CartController extends Controller
                 "TransCode" => $trxCode,
                 "TransDate" => $currentDate,
                 "UserID" => Auth::user()->id,
-                "FineTotal" => 0,
+                "FineTotal" => null,
             ]);
             DB::table('DetailTransaksi')->insert([
                 "TransID" => $trxCode,

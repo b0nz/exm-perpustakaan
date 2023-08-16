@@ -10,6 +10,7 @@
                     <th scope="col">Nama Buku</th>
                     <th scope="col">Qty</th>
                     <th scope="col">Tgl Pinjam</th>
+                    <th scope="col">Tgl Pengembalian</th>
                     <th scope="col">Batas Waktu Pengembalian</th>
                     <th scope="col">Denda</th>
                     <th scope="col">Aksi</th>
@@ -23,10 +24,15 @@
                     <td>{{ $trx->BookName }}</td>
                     <td>{{ $trx->Qty }}</td>
                     <td>{{ $trx->TransDate }}</td>
+                    <td>{{ isset($trx->Fine) ? date("Y-m-d", strtotime($trx->FineDays." day", strtotime($trx->ReturnDate))) : '-' }}</td>
                     <td>{{ $trx->ReturnDate }}</td>
-                    <td>{{ $trx->Fine ?? 0 }}</td>
+                    <td>{{ $trx->Fine ?? '-' }}</td>
                     <td>
+                        @if(!isset($trx->Fine))
                         <a href="{{ route('pengembalian', $trx->TransCode) }}" class="btn btn-primary fw-bold" role="button">Pengembalian</a>
+                        @else
+                        <p class="badge bg-secondary">Sudah Dikembalikan</p>
+                        @endif
                     </td>
                 </tr>
                 @endforeach @isset($dataTrx) @if(count($dataTrx) == 0)
