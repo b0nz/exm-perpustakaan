@@ -20,7 +20,7 @@ CREATE TABLE `Buku` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO `Buku` (`ID`, `BookTypeID`, `BookName`, `Description`, `Publisher`, `Year`, `Stock`) VALUES
-(1,	5,	'Voluptas rerum reiciendis ab.',	'Odio eius consequuntur hic. Ab eius earum eaque facilis possimus distinctio ut. Neque quia magnam qui.',	'Perum Kusmawati (Persero) Tbk',	1999,	98),
+(1,	5,	'Voluptas rerum reiciendis ab.',	'Odio eius consequuntur hic. Ab eius earum eaque facilis possimus distinctio ut. Neque quia magnam qui.',	'Perum Kusmawati (Persero) Tbk',	1999,	100),
 (2,	10,	'Pariatur ullam voluptas.',	'Commodi porro consequatur officiis assumenda amet possimus deleniti voluptatum. Neque excepturi illum repellendus minus quia maxime ex. Consequatur id unde sed quo ea. Officia omnis nam ea corrupti.',	'PJ Rahmawati Tbk',	1990,	100),
 (3,	10,	'Aut ut esse et necessitatibus.',	'Deserunt consequatur veritatis ea itaque neque hic et illum. Reprehenderit voluptatem quod iure aut culpa. Est quis odit laudantium est et. Doloribus qui doloremque voluptatum iusto voluptates ipsam. Quia maiores eos quo rerum quam quis qui.',	'PJ Wulandari',	2017,	100),
 (4,	8,	'Est repudiandae ea ut ducimus cumque.',	'Incidunt deserunt aut cupiditate nulla enim ea. Aut dolor voluptate doloremque mollitia quia. Nam fugit dolores similique cumque. Beatae tempora eos tenetur cum soluta modi iusto. Sed rerum quae dolorum recusandae. Ratione blanditiis tempora sunt vitae saepe. Odio eos expedita saepe blanditiis recusandae dolore. Necessitatibus at at quos porro numquam et cum et.',	'PJ Handayani Waluyo',	1999,	100),
@@ -67,8 +67,6 @@ CREATE TABLE `DetailTransaksi` (
   CONSTRAINT `DetailTransaksi_ibfk_2` FOREIGN KEY (`BookID`) REFERENCES `Buku` (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `DetailTransaksi` (`ID`, `TransID`, `BookID`, `Qty`, `ReturnDate`, `FineDays`, `Fine`) VALUES
-(1,	'64dba7ae51837',	1,	2,	'2023-08-11',	4,	40000);
 
 DROP TABLE IF EXISTS `failed_jobs`;
 CREATE TABLE `failed_jobs` (
@@ -157,8 +155,6 @@ CREATE TABLE `Transaksi` (
   CONSTRAINT `Transaksi_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO `Transaksi` (`TransCode`, `TransDate`, `UserID`, `FineTotal`) VALUES
-('64dba7ae51837',	'2023-08-10',	16,	40000);
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
@@ -194,4 +190,4 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 (16,	'user 1',	'user1@mail.com',	NULL,	'$2y$10$JSEfrvDD6FApaIVerWlmseh.TFhMjBVryuITQ64FQE8LGngda761u',	NULL,	'2023-08-13 17:02:25',	'2023-08-13 17:02:25',	'user'),
 (17,	'admin',	'admin@mail.com',	NULL,	'$2y$10$oDu/s3vD.kKmXjP53cJNeehn//u39tI4qgVJH72aIZY64UDNUqniG',	NULL,	'2023-08-13 17:02:45',	'2023-08-13 17:02:45',	'admin');
 
--- 2023-08-16 04:34:31
+-- 2023-08-17 07:48:17
