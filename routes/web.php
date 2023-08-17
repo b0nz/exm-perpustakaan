@@ -48,6 +48,10 @@ Route::get('/users', [App\Http\Controllers\UsersController::class, 'index'])
     ->middleware('can:isAdmin')
     ->name('users');
 
+Route::get('/transaksi', [App\Http\Controllers\HistoryController::class, 'index'])
+    ->middleware('can:isAdmin')
+    ->name('transaksi');
+
 Route::get('/history', [App\Http\Controllers\HistoryController::class, 'index'])
     ->middleware('can:isUser')
     ->name('history');

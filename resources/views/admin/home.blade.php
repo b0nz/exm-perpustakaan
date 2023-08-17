@@ -17,14 +17,14 @@
                 </div>
             </div>
         </div>
-        <!-- <div class="col-md-4">
+        <div class="col-md-4">
             <div class="card bg-white">
                 <div class="card-body">
-                    <h5 class="card-title">Total Transaksi</h5>
-                    <p class="card-text">567</p>
+                    <h5 class="card-title">Total Denda Diperoleh</h5>
+                    <p class="card-text">{{ 'Rp '.$totalDenda }}</p>
                 </div>
             </div>
-        </div> -->
+        </div>
     </div>
 </div>
 @endsection

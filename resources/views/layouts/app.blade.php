@@ -44,6 +44,9 @@
                                 <li class="nav-item">
                                     <a class="{{ (request()->is('jenis-buku')) ? "nav-link active text-decoration-underline" : "nav-link" }}" href="{{ route('jenis-buku') }}">{{ __('Jenis Buku') }}</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="{{ (request()->is('transaksi')) ? "nav-link active text-decoration-underline" : "nav-link" }}" href="{{ route('transaksi') }}">{{ __('Transaksi') }}</a>
+                                </li>
                             @else
                                 <li class="nav-item">
                                     <a class="{{ (request()->is('/')) ? "nav-link active text-decoration-underline" : "nav-link" }}" href="{{ route('home') }}">{{ __('Home') }}</a>

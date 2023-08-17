@@ -28,7 +28,8 @@ class HomeController extends Controller
         if (Gate::allows('isAdmin')) {
             $totalUser = DB::table('users')->where('role', '=', 'user')->count();
             $totalBuku = DB::table('Buku')->count();
-            return view('admin.home', ['totalUser' => $totalUser, 'totalBuku' => $totalBuku]);
+            $totalDenda = DB::table('DetailTransaksi')->sum('Fine');
+            return view('admin.home', ['totalUser' => $totalUser, 'totalBuku' => $totalBuku, 'totalDenda' => $totalDenda]);
         } else if (Gate::allows('isUser')) {
             $dataBuku = DB::table('Buku')
                     ->leftJoin('JenisBuku', 'Buku.BookTypeID', '=', 'JenisBuku.ID')

@@ -5,19 +5,31 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class HistoryController extends Controller
 {
     public function index()
     {
-        $dataTrx = DB::table('DetailTransaksi')
-                    ->leftJoin('Transaksi', 'Transaksi.TransCode', '=', 'DetailTransaksi.TransID')
-                    ->leftJoin('Buku', 'Buku.ID', '=', 'DetailTransaksi.BookID')
-                    ->select('Transaksi.TransCode', 'Transaksi.TransDate', 'Transaksi.FineTotal', 'DetailTransaksi.ReturnDate', 'DetailTransaksi.Qty', 'DetailTransaksi.FineDays', 'DetailTransaksi.Fine', 'Buku.BookName', 'Buku.Publisher', 'Buku.Year')
-                    ->where('Transaksi.UserID', '=', Auth::user()->id)
-                    ->get();
+        if (Gate::allows('isAdmin')) {
+            $dataTrx = DB::table('DetailTransaksi')
+                        ->leftJoin('Transaksi', 'Transaksi.TransCode', '=', 'DetailTransaksi.TransID')
+                        ->leftJoin('Buku', 'Buku.ID', '=', 'DetailTransaksi.BookID')
+                        ->leftJoin('users', 'users.id', '=', 'Transaksi.UserID')
+                        ->select('Transaksi.TransCode', 'Transaksi.TransDate', 'Transaksi.FineTotal', 'DetailTransaksi.ReturnDate', 'DetailTransaksi.Qty', 'DetailTransaksi.FineDays', 'DetailTransaksi.Fine', 'Buku.BookName', 'Buku.Publisher', 'Buku.Year', 'users.name')
+                        ->get();
 
-        return view('user.history', ['dataTrx' => $dataTrx]);
+            return view('admin.transaksi', ['dataTrx' => $dataTrx]);
+        } else if(Gate::allows('isUser')) {
+            $dataTrx = DB::table('DetailTransaksi')
+                        ->leftJoin('Transaksi', 'Transaksi.TransCode', '=', 'DetailTransaksi.TransID')
+                        ->leftJoin('Buku', 'Buku.ID', '=', 'DetailTransaksi.BookID')
+                        ->select('Transaksi.TransCode', 'Transaksi.TransDate', 'Transaksi.FineTotal', 'DetailTransaksi.ReturnDate', 'DetailTransaksi.Qty', 'DetailTransaksi.FineDays', 'DetailTransaksi.Fine', 'Buku.BookName', 'Buku.Publisher', 'Buku.Year')
+                        ->where('Transaksi.UserID', '=', Auth::user()->id)
+                        ->get();
+
+            return view('user.history', ['dataTrx' => $dataTrx]);
+        }
     }
 
     public function pengembalian($id)
